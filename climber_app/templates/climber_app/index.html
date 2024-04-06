@@ -4,15 +4,19 @@
 
 <!-- Replace block content in base_template.html -->
 {% block content %}
-<h1>Rock Climbing Gyms</h1>
+<h1> Climb Companion</h1>
+Welcome, climbers! Here at Climb Companion, we are comitted to empowering every climber.
+Whether you're here to find a new climbing gym to try out, or you're a new climber and want
+to find a good place to start, we've got you covered!  
+<br>
+<br>
+<!--Featured Gym Placeholder
+<h2>This Week's Featured Gym</h2> -->
 
-<h2>List of Gyms with Active Routes</h2>
-    <ul class = "list-group">
-        {% for i in gym_active_routes %}
-            <li class="list-group-item">Name: {{i.name}}
-                <p><strong>Route: {{ i.route }}</strong></p>
-                <a href="{{ i.route.get_absolute_url }}" class="btn btn-success">View</a>
-            </li>
-        {% endfor %}
-    </ul>
+<div class="button-container">
+    <a href="#" class="btn btn-success">Looking for a new gym?<br>Click here.</a>
+    <a href="#" class="btn btn-success">Want to register your own gym?<br>Click here.</a>
+    <a href="#" class="btn btn-success">Already have a gym account with us?<br>Click here.</a>
+</div>
+
 {% endblock %}
