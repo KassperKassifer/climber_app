@@ -14,12 +14,12 @@
                 <div class="col-sm-auto">
                     <!-- Get url for current gym -->
                     <ul>
-                        <li><a href="{#}">{{ gym.name }}</a></li>
+                        <li><a href="{{ gym.get_absolute_url }}">{{ gym.name }}</a></li>
                     </ul>
                 </div>
                 <div class="col-md-auto">
                     <!-- Button to view current gym's profile -->
-                    <a href="{#}" class="btn btn-primary">View</a>
+                    <a href="{{ gym.get_absolute_url }}" class="btn btn-primary">View</a>
                 </div>
             </div>
             {% endfor %}

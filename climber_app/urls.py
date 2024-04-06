@@ -11,6 +11,8 @@ urlpatterns = [
     #connect path to portfolio_app urls
     path('', views.index, name="index"),
     path('gyms/', views.GymViewList.as_view(), name="gyms"),
+    path('gym-detail/<int:pk>', views.GymDetailView.as_view(), name="gym-detail"),
+
 
 
     #Stub page for login and logout views

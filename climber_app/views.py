@@ -31,3 +31,13 @@ def index(request):
 # this will query the database to get all records
 class GymViewList(generic.ListView):
     model = Gym
+
+class GymDetailView(generic.DetailView):
+    model = Gym
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        gym = self.get_object()
+        true_fields = [field.verbose_name for field in Gym._meta.fields if isinstance(field, models.BooleanField) and getattr(gym, field.name)]        
+        context['true_fields'] = true_fields
+        return context
