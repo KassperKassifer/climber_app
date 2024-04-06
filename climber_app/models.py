@@ -14,11 +14,13 @@ class Gym(models.Model):
     name = models.CharField(max_length=200)
     email = models.CharField("Business Email", max_length=200)
     location = models.CharField("Location", max_length=200)
-    route_types = models.CharField(
-        max_length=100,
-        choices=ROUTE_TYPE_OPTIONS,
-        help_text='Select the route types offered by the gym',
-    )    
+    about = models.TextField(blank=True)
+    top_rope_climbing = models.BooleanField(default=False)
+    lead_climbing = models.BooleanField(default=False)
+    bouldering = models.BooleanField(default=False)
+    crack_climbing = models.BooleanField(default=False)
+    membership_price = models.DecimalField(default=0, decimal_places=2, max_digits=5)
+    daily_price = models.DecimalField(default=0, decimal_places=2, max_digits=5)
 
     #Define default String to return the name for representing the Model object."
     def __str__(self):

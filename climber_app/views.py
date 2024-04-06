@@ -25,3 +25,9 @@ def index(request):
     
     print("active route query set", gym_active_routes)
     return render( request, 'climber_app/index.html', {'gym_active_routes':gym_active_routes})
+
+
+# Implement classes that inherit from a generic view
+# this will query the database to get all records
+class GymViewList(generic.ListView):
+    model = Gym

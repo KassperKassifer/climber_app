@@ -1,0 +1,32 @@
+<!-- inherit from base.html-->
+{% extends "climber_app/base_template.html" %}
+
+
+<!-- Replace block content in base_template.html -->
+<!-- Use generic class view to display a list view of active students -->
+{% block content %}
+    <h1>Our Gym Partners</h1>
+    <!-- Template code to process gyms in list -->
+    {% if gym_list %}
+        <div class="container">
+            {% for gym in gym_list %}
+            <div class="row py-2">
+                <div class="col-sm-auto">
+                    <!-- Get url for current gym -->
+                    <ul>
+                        <li><a href="{#}">{{ gym.name }}</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-auto">
+                    <!-- Button to view current gym's profile -->
+                    <a href="{#}" class="btn btn-primary">View</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>            
+    {% else %}
+        <p>There are no gyms registered with us yet. Feel free to reach out to your gym to have them
+            partner with us!
+        </p>
+    {% endif %}
+{% endblock %}

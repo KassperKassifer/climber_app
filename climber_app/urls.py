@@ -10,6 +10,8 @@ urlpatterns = [
     # example in html <a href="{% url 'index' %}">Home</a>.
     #connect path to portfolio_app urls
     path('', views.index, name="index"),
+    path('gyms/', views.GymViewList.as_view(), name="gyms"),
+
 
     #Stub page for login and logout views
 	path('login/', views.stub, name="login"),
