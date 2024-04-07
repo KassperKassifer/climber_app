@@ -41,6 +41,7 @@ class Route(models.Model):
     date_added = models.DateField()
     about = models.TextField(blank = True)
     wall_num = models.IntegerField(blank = True)
+    route_type = models.CharField(max_length=20, default="Bouldering")
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE, default=None, related_name='routes')
 
     #Define default String to return the name for representing the Model object."

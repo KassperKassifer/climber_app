@@ -1,0 +1,32 @@
+<!-- inherit from base.html-->
+{% extends "climber_app/base_template.html" %}
+
+
+<!-- Replace block content in base_template.html -->
+{% block content %}
+
+    <!-- Empty action will post form data back to current url -->
+    <form action="" method="POST">
+
+        <!-- Security to reduce malicious users -->
+        {% csrf_token %}
+        <table>
+            {% for field in form %}
+                <tr>
+                    <!-- Render the label with a <strong> tag and put asterisks on required fields -->
+                        <td>
+                            <label for="{{ field.id_for_label }}">
+                                <strong>{{ field.label }}</strong>
+                                {% if field.field.required %}
+                                    <span style="color: red;">*</span>
+                                {% endif %}
+                            </label>
+                        </td>
+                        <td>{{ field }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <input type="submit" name="Submit">
+    </form>
+
+{% endblock %}

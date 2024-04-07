@@ -27,4 +27,24 @@
         <p>No daily pricing option available.</p>
     {% endif %}
 
+    <h2> Our Routes </h2>
+    <!-- Display list of projects -->
+    <div class="container">
+        {% for route in gym.routes.all %}
+        <div class="border-bottom border-2 py-3">
+            <div class="row">
+                <div class="col">
+                    <p><strong>{{ route }}</strong></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <a href="{% url 'view-route' gym_id=gym.id pk=gym.id %}" class="btn btn-primary">View</a>
+                    <a href="{% url 'update-route' gym_id=gym.id pk=gym.id %}" class="btn btn-secondary">Update</a>
+                    <a href="{% url 'delete-route' gym_id=gym.id pk=gym.id %}" class="btn btn-danger">Delete</a>
+                </div>          
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 {% endblock %}
