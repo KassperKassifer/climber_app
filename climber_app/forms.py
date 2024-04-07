@@ -13,4 +13,4 @@ class GymForm(ModelForm):
 class RouteForm(ModelForm):
     class Meta:
         model = Route
-        fields = ('level', 'route_setter', 'is_active', 'date_added', 'about', 'wall_num')
+        fields = ('level', 'route_setter', 'is_active', 'date_added', 'about', 'wall_num', 'route_type')

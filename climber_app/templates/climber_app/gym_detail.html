@@ -28,6 +28,9 @@
     {% endif %}
 
     <h2> Our Routes </h2>
+    <!--This will need user authentification in the next sprint so only verified users can add routes-->
+    <a href="{% url 'create-route' gym_id=gym.id %}" class="btn btn-success">Add a New Route</a>
+
     <!-- Display list of projects -->
     <div class="container">
         {% for route in gym.routes.all %}

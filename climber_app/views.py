@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import generic
 from .models import *
-from .forms import RouteForm
+from .forms import RouteForm, GymForm
 from django.urls import reverse_lazy
 
 #Catch all for pages not yet done
@@ -49,6 +49,8 @@ def createRoute(request, gym_id):
             return redirect('gym-detail', gym_id)
     context = {'form': form}
     return render(request, 'climber_app/route_form.html', context)
+
+
 
 
 # Implement classes that inherit from a generic view
@@ -101,4 +103,12 @@ class RouteDeleteView(generic.edit.DeleteView):
     def get_success_url(self):
         gym_id = self.kwargs['gym_id']
         return reverse('gym-detail', kwargs={'pk': gym_id})
+    
+class GymCreateView(generic.edit.CreateView):
+    model = Gym
+    form_class = GymForm
+    template_name = 'climber_app/gym_form.html'  # Your template for the form
+    
+    def get_success_url(self):
+        return reverse('gym-detail', kwargs={'pk': self.object.pk})
     
