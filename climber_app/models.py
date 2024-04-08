@@ -40,7 +40,7 @@ class Route(models.Model):
     is_active = models.BooleanField(default = False)
     date_added = models.DateField()
     about = models.TextField(blank = True)
-    wall_num = models.IntegerField(blank = True)
+    wall_num = models.IntegerField(blank = True, default=None, null=True)
     route_type = models.CharField(max_length=20, default="Bouldering")
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE, default=None, related_name='routes')
 
