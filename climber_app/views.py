@@ -112,3 +112,17 @@ class GymCreateView(generic.edit.CreateView):
     def get_success_url(self):
         return reverse('gym-detail', kwargs={'pk': self.object.pk})
     
+class GymUpdateView(generic.edit.UpdateView):
+    model = Gym
+    form_class = GymForm
+    template = 'climber_app/gym_form.html'
+
+    def get_queryset(self):
+        # Filter the queryset based on the URL parameters
+        queryset = super().get_queryset()
+        pk = self.kwargs['pk']
+        return queryset.filter(pk=pk)
+    
+    def get_success_url(self):
+        pk = self.kwargs['pk']
+        return reverse('gym-detail', kwargs={'pk': pk})

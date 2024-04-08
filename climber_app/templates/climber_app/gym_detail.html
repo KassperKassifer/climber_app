@@ -10,6 +10,9 @@
     <p><strong>Email:</strong> {{ gym.email }} </p>
     <p><strong>Location:</strong> {{ gym.location }} </p>
     <p><strong>About:</strong> {{ gym.about }} </p>
+    <a href="{% url 'update-gym' pk=gym.id %}" class="btn btn-secondary">Update Gym Profile</a>
+    <br>
+    <br>
 
     <!--Iterate over the boolean fields and print the types of climbs offered-->
     <h2> Climbing Types Available </h2>

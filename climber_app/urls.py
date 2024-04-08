@@ -18,7 +18,7 @@ urlpatterns = [
     path('gym/<int:gym_id>/route/<int:pk>/', views.RouteDetailView.as_view(), name="view-route"),
     path('gym/<int:gym_id>/route/<int:pk>/delete/', views.RouteDeleteView.as_view(), name="delete-route"),
     path('gym/<int:gym_id>/create-route/', views.createRoute, name="create-route"),
-
+    path('gym/<int:pk>/update-gym/', views.GymUpdateView.as_view(), name="update-gym"),
     
     #Stub page for login and logout views
 	path('login/', views.stub, name="login"),
