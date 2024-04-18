@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import generic
 from .models import *
-from .forms import RouteForm, GymForm
+from .forms import RouteForm, GymForm, CreateUserForm
+from django.contrib import messages
+from django.contrib.auth.models import Group
 from django.urls import reverse_lazy
 
 #Catch all for pages not yet done
@@ -49,8 +51,6 @@ def createRoute(request, gym_id):
             return redirect('gym-detail', gym_id)
     context = {'form': form}
     return render(request, 'climber_app/route_form.html', context)
-
-
 
 
 # Implement classes that inherit from a generic view
@@ -126,3 +126,26 @@ class GymUpdateView(generic.edit.UpdateView):
     def get_success_url(self):
         pk = self.kwargs['pk']
         return reverse('gym-detail', kwargs={'pk': pk})
+    
+
+#User authentification views
+def registerPage(request):
+    form = CreateUserForm()
+
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            group = Group.objects.get(name='gym')
+            user.groups.add(group)
+            gym = Gym.objects.create(user=user,)
+            gym.save()
+
+            messages.success(request, 'Account was created for ' + username)
+            return redirect('login')
+    
+    context = {'form':form}
+    return render(request, 'registration/register.html', context)
+
+    

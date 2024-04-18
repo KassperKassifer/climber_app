@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -21,6 +22,9 @@ class Gym(models.Model):
     crack_climbing = models.BooleanField(default=False)
     membership_price = models.DecimalField(default=0, decimal_places=2, max_digits=5)
     daily_price = models.DecimalField(default=0, decimal_places=2, max_digits=5)
+
+    #Connect to permission group
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
 
     #Define default String to return the name for representing the Model object."
     def __str__(self):

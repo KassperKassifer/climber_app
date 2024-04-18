@@ -23,4 +23,8 @@ urlpatterns = [
     #Stub page for login and logout views
 	path('login/', views.stub, name="login"),
     path('logout/', views.stub, name="logout"),
+
+    #User accounts
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/register/', views.registerPage, name = 'register_page'),
 ]

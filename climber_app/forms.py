@@ -14,3 +14,9 @@ class RouteForm(ModelForm):
     class Meta:
         model = Route
         fields = ('level', 'route_setter', 'is_active', 'date_added', 'about', 'wall_num', 'route_type')
+
+#Registration page
+class CreateUserForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
