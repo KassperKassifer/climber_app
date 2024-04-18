@@ -137,7 +137,7 @@ def registerPage(request):
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
-            group = Group.objects.get(name='gym')
+            group = Group.objects.get(name='gym_role')
             user.groups.add(group)
             gym = Gym.objects.create(user=user,)
             gym.save()
