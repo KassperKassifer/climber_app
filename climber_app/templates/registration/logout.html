@@ -4,4 +4,9 @@
 {% block content %}
   <p>Logged out!</p>
   <a href="{% url 'login'%}">Click here to login again.</a>
+  <br>
+  <br>
+  <!-- Redirect to index after logout -->
+  <a href="{% url 'index' %}" class="btn btn-primary">Back to Home</a>
 {% endblock %}
+

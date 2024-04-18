@@ -21,10 +21,12 @@ urlpatterns = [
     path('gym/<int:pk>/update-gym/', views.GymUpdateView.as_view(), name="update-gym"),
     
     #Stub page for login and logout views
-	path('login/', views.stub, name="login"),
-    path('logout/', views.stub, name="logout"),
+	#path('login/', views.stub, name="login"),
+    #path('logout/', views.stub, name="logout"),
 
     #User accounts
+    path('logout/', views.customLogout, name='custom-logout'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/register/', views.registerPage, name = 'register_page'),
+    path('user/', views.userPage, name='user_page')
 ]

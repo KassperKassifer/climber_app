@@ -1,0 +1,18 @@
+{% extends 'climber_app/base_template.html' %}
+{% block content %}
+<h3>Climb Companion Gym Profile</h3>
+Welcome, {{user}}
+    Gym id: {{user.gym.id}}
+        <p><strong>Gym:{{user.gym.name}}</strong></p>
+            <a class="btn btn-primary" href="{{ user.gym.get_absolute_url }}" role="button">View</a>
+            <a class="btn btn-primary" href="{% url 'update-gym' user.gym.id %}" role="button">Update</a>
+
+    <h3>Gym Information</h3>
+
+    <form method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input class="btn btn-primary" type="submit" name="Update">
+    </form>
+</div>
+{% endblock %}

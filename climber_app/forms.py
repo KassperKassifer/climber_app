@@ -8,7 +8,8 @@ from django.core.exceptions import ValidationError
 class GymForm(ModelForm):
     class Meta:
         model = Gym
-        fields = ('name', 'email', 'location', 'about', 'top_rope_climbing', 'lead_climbing', 'bouldering', 'crack_climbing', 'membership_price', 'daily_price')
+        fields = ('__all__')
+        exclude = ['user']
 
 class RouteForm(ModelForm):
     class Meta:
@@ -20,3 +21,4 @@ class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+

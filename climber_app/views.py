@@ -6,6 +6,12 @@ from .forms import RouteForm, GymForm, CreateUserForm
 from django.contrib import messages
 from django.contrib.auth.models import Group
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+from functools import wraps
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .decorators import allowed_users
+from django.contrib.auth import logout
+
 
 #Catch all for pages not yet done
 def stub(request):
@@ -31,6 +37,8 @@ def index(request):
 
 
 # Create Route form view
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['gym_role'])
 def createRoute(request, gym_id):
     form = RouteForm()
     gym = Gym.objects.get(pk=gym_id)
@@ -79,7 +87,7 @@ class RouteDetailView(generic.DetailView):
         pk = self.kwargs['pk']
         return queryset.filter(gym_id=gym_id, pk=pk)
     
-class RouteUpdateView(generic.edit.UpdateView):
+class RouteUpdateView(LoginRequiredMixin, generic.edit.UpdateView):
     model = Route
     fields = ['level', 'is_active', 'about']
     template = 'climber_app/route_form.html'
@@ -95,7 +103,7 @@ class RouteUpdateView(generic.edit.UpdateView):
         gym_id = self.kwargs['gym_id']
         return reverse('gym-detail', kwargs={'pk': gym_id})
 
-class RouteDeleteView(generic.edit.DeleteView):
+class RouteDeleteView(LoginRequiredMixin, generic.edit.DeleteView):
     model = Route
     template_name = 'climber_app/route_delete.html'
     context_object_name = 'route' #'route' will refer to the route object in route_delete.html
@@ -104,7 +112,7 @@ class RouteDeleteView(generic.edit.DeleteView):
         gym_id = self.kwargs['gym_id']
         return reverse('gym-detail', kwargs={'pk': gym_id})
     
-class GymCreateView(generic.edit.CreateView):
+class GymCreateView(LoginRequiredMixin, generic.edit.CreateView):
     model = Gym
     form_class = GymForm
     template_name = 'climber_app/gym_form.html'  # Your template for the form
@@ -112,7 +120,7 @@ class GymCreateView(generic.edit.CreateView):
     def get_success_url(self):
         return reverse('gym-detail', kwargs={'pk': self.object.pk})
     
-class GymUpdateView(generic.edit.UpdateView):
+class GymUpdateView(LoginRequiredMixin, generic.edit.UpdateView):
     model = Gym
     form_class = GymForm
     template = 'climber_app/gym_form.html'
@@ -139,7 +147,7 @@ def registerPage(request):
             username = form.cleaned_data.get('username')
             group = Group.objects.get(name='gym_role')
             user.groups.add(group)
-            gym = Gym.objects.create(user=user,)
+            gym = Gym.objects.create(user=user, name=username)
             gym.save()
 
             messages.success(request, 'Account was created for ' + username)
@@ -149,3 +157,21 @@ def registerPage(request):
     return render(request, 'registration/register.html', context)
 
     
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['gym_role'])
+def userPage(request):
+    gym = request.user.gym
+    form = GymForm(instance = gym)
+    print('gym', gym)
+    if request.method == 'POST':
+        form = GymForm(request.POST, request.FILES, instance = gym)
+        if form.is_valid():
+            form.save()
+    context = {'form':form}
+    #context={}
+    return render(request, 'climber_app/user.html', context)
+
+
+def customLogout(request):
+    logout(request)
+    return render(request, 'registration/logout.html')  # Render the logout template
