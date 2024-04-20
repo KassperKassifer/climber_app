@@ -6,7 +6,8 @@
 {% block content %}
 
     <!-- Empty action will post form data back to current url -->
-    <form action="" method="POST">
+    <!--The enctype allows images to be uploaded to the media folder-->
+    <form action="" method="POST" enctype="multipart/form-data">
 
         <!-- Security to reduce malicious users -->
         {% csrf_token %}

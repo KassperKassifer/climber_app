@@ -119,6 +119,11 @@ class GymCreateView(LoginRequiredMixin, generic.edit.CreateView):
     
     def get_success_url(self):
         return reverse('gym-detail', kwargs={'pk': self.object.pk})
+
+    def form_valid(self, form):
+        # Additional logic if needed
+        return super().form_valid(form)
+    
     
 class GymUpdateView(LoginRequiredMixin, generic.edit.UpdateView):
     model = Gym

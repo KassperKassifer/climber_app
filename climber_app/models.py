@@ -13,15 +13,16 @@ class Gym(models.Model):
     ('crack climbing', 'Crack Climbing'),
     )
     name = models.CharField(max_length=200)
-    email = models.CharField("Business Email", max_length=200)
+    email = models.EmailField("Business Email", max_length=200, blank=True)
     location = models.CharField("Location", max_length=200)
     about = models.TextField(blank=True)
     top_rope_climbing = models.BooleanField(default=False)
     lead_climbing = models.BooleanField(default=False)
     bouldering = models.BooleanField(default=False)
     crack_climbing = models.BooleanField(default=False)
-    membership_price = models.DecimalField(default=0, decimal_places=2, max_digits=5)
+    membership_price = models.DecimalField(default=0, decimal_places=2, max_digits=10)
     daily_price = models.DecimalField(default=0, decimal_places=2, max_digits=5)
+    gym_image = models.ImageField(null=True, blank=True, upload_to="images/")
 
     #Connect to permission group
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)

@@ -6,6 +6,9 @@
 <!-- Use generic class view to display student details -->
 {% block content %}
     <h1> {{ gym.name }} </h1>
+    {% if gym.gym_image %}
+    <img src="{{ gym.gym_image.url }}" width=420>
+    {% endif %}
 
     <p><strong>Email:</strong> {{ gym.email }} </p>
     <p><strong>Location:</strong> {{ gym.location }} </p>
