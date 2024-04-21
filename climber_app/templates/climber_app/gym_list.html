@@ -8,7 +8,7 @@
     <h1>Our Gym Partners</h1>
     <!-- Template code to process gyms in list -->
     {% if gym_list %}
-        <div class="container">
+       {% comment %}  <div class="container">
             {% for gym in gym_list %}
             <div class="row py-2">
                 <div class="col-sm-auto">
@@ -23,7 +23,14 @@
                 </div>
             </div>
             {% endfor %}
-        </div>            
+        </div>   {% endcomment %}
+        <table class="table table-bordered table-hover table-striped">
+            {% for gym in gym_list %}
+                <tr>
+                    <td><a href="{{ gym.get_absolute_url }}"><strong>{{ gym.name }}</strong></a></td>
+                </tr>
+            {% endfor %}
+        </table>
     {% else %}
         <p>There are no gyms registered with us yet. Feel free to reach out to your gym to have them
             partner with us!
