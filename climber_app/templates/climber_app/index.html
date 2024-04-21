@@ -14,9 +14,19 @@ to find a good place to start, we've got you covered!
 <h2>This Week's Featured Gym</h2> -->
 
 <div class="button-container">
-    <a href="{% url 'gyms' %}" class="btn btn-success">Looking for a new gym?<br>Click here.</a>
-    <a href="{% url 'register_page' %}" class="btn btn-success">Want to register your own gym?<br>Click here.</a>
-    <a href="{% url 'login' %}" class="btn btn-success">Already have a gym account with us?<br>Login here.</a>
+    {% if user.is_authenticated %}
+        <div class="d-grid gap-4 col-10">
+            <a href="{{ user.gym.get_absolute_url }}" class="btn btn-success">Want to take a look at the {{ user.gym.name }} profile?</a>
+            <a href="{% url 'gyms' %}" class="btn  btn-info">Want to check out the competition? Look at our list of registered gyms.</a>
+        </div>
+       
+    {% else %}
+        <div class="d-grid gap-4 col-10">
+            <a href="{% url 'gyms' %}" class="btn btn-info btn-lg">Looking for a new place to climb?<br>See our list of registered gyms here.</a>
+            <a href="{% url 'register_page' %}" class="btn btn-primary btn-lg">Want to register your own gym?<br>Click here.</a>
+            <a href="{% url 'login' %}" class="btn btn-secondary btn-lg">Already have a gym account with us?<br>Login here.</a>
+        </div>
+    {% endif %}
 </div>
 
 {% endblock %}

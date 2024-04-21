@@ -20,9 +20,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-path('admin/', admin.site.urls),
-#connect path to climber_app urls
-path('', include('climber_app.urls')),
-path('members/', include('django.contrib.auth.urls')),
-path('members/', include('members.urls')),
+    path('admin/', admin.site.urls),
+    #connect path to my other app urls
+    path('', include('climber_app.urls')),
+    path('members/', include('django.contrib.auth.urls')),
+    path('members/', include('members.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # When image is uploaded, this will automaticcaly create a url to be referenced later
