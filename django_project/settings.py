@@ -38,9 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Add your app name here
+    # Add your apps' names here
     'climber_app',
     'django_bootstrap5',
+    'members',
 ]
 
 # Add support for authenticating users

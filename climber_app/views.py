@@ -86,7 +86,8 @@ class RouteDetailView(generic.DetailView):
         gym_id = self.kwargs['gym_id']
         pk = self.kwargs['pk']
         return queryset.filter(gym_id=gym_id, pk=pk)
-    
+
+
 class RouteUpdateView(LoginRequiredMixin, generic.edit.UpdateView):
     model = Route
     fields = ['level', 'is_active', 'about']
@@ -115,11 +116,12 @@ class RouteDeleteView(LoginRequiredMixin, generic.edit.DeleteView):
 class GymCreateView(LoginRequiredMixin, generic.edit.CreateView):
     model = Gym
     form_class = GymForm
-    template_name = 'climber_app/gym_form.html'  # Your template for the form
+    template_name = 'climber_app/gym_form.html'
     
     def get_success_url(self):
         return reverse('gym-detail', kwargs={'pk': self.object.pk})
 
+    # This automatically handles request.POST and request.FILES, which are needed for users to upload images
     def form_valid(self, form):
         # Additional logic if needed
         return super().form_valid(form)
@@ -140,6 +142,10 @@ class GymUpdateView(LoginRequiredMixin, generic.edit.UpdateView):
         pk = self.kwargs['pk']
         return reverse('gym-detail', kwargs={'pk': pk})
     
+    # This automatically handles request.POST and request.FILES, which are needed for users to upload images
+    def form_valid(self, form):
+        # Additional logic if needed
+        return super().form_valid(form)
 
 #User authentification views
 def registerPage(request):
@@ -152,7 +158,7 @@ def registerPage(request):
             username = form.cleaned_data.get('username')
             group = Group.objects.get(name='gym_role')
             user.groups.add(group)
-            gym = Gym.objects.create(user=user, name=username)
+            gym = Gym.objects.create(user=user, name=username + "'s Gym")
             gym.save()
 
             messages.success(request, 'Account was created for ' + username)
