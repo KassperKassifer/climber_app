@@ -10,7 +10,6 @@ from django.contrib.auth.decorators import login_required
 from functools import wraps
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .decorators import allowed_users
-from django.contrib.auth import logout
 from django.contrib.auth.views import redirect_to_login
 
 
@@ -105,6 +104,14 @@ class RouteUpdateView(LoginRequiredMixin, generic.edit.UpdateView):
     def get_success_url(self):
         gym_id = self.kwargs['gym_id']
         return reverse('gym-detail', kwargs={'pk': gym_id})
+    
+    def handle_no_permission(self):
+        """
+        Redirect to the login page if the user is not logged in.
+        """
+        login_url = reverse_lazy('custom-login')
+        path = self.request.get_full_path()
+        return redirect_to_login(path, login_url, 'next')
 
 class RouteDeleteView(LoginRequiredMixin, generic.edit.DeleteView):
     model = Route
@@ -209,7 +216,3 @@ def userPage(request):
     #context={}
     return render(request, 'climber_app/user.html', context)
 
-
-def customLogout(request):
-    logout(request)
-    return render(request, 'registration/logout.html')  # Render the logout template
