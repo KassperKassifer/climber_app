@@ -24,7 +24,7 @@ to find a good place to start, we've got you covered!
         <div class="d-grid gap-4 col-10">
             <a href="{% url 'gyms' %}" class="btn btn-info btn-lg">Looking for a new place to climb?<br>See our list of registered gyms here.</a>
             <a href="{% url 'register_page' %}" class="btn btn-primary btn-lg">Want to register your own gym?<br>Click here.</a>
-            <a href="{% url 'login' %}" class="btn btn-secondary btn-lg">Already have a gym account with us?<br>Login here.</a>
+            <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-secondary btn-lg">Already have a gym account with us?<br>Login here.</a>
         </div>
     {% endif %}
 </div>

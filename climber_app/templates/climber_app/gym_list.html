@@ -8,22 +8,6 @@
     <h1>Our Gym Partners</h1>
     <!-- Template code to process gyms in list -->
     {% if gym_list %}
-       {% comment %}  <div class="container">
-            {% for gym in gym_list %}
-            <div class="row py-2">
-                <div class="col-sm-auto">
-                    <!-- Get name for current gym -->
-                    <ul>
-                        <li>{{ gym.name }}</li>
-                    </ul>
-                </div>
-                <div class="col-md-auto">
-                    <!-- Button to view current gym's profile -->
-                    <a href="{{ gym.get_absolute_url }}" class="btn btn-primary">View</a>
-                </div>
-            </div>
-            {% endfor %}
-        </div>   {% endcomment %}
         <table class="table table-bordered table-hover table-striped">
             {% for gym in gym_list %}
                 <tr>

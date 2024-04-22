@@ -10,12 +10,12 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            next_url = request.GET.get('next', reverse_lazy('index'))
-            return redirect(next_url)
+            return redirect('index')
         else:
             # Return an 'invalid login' error message.
             messages.success(request, ("There was an error logging in. Try again..."))
-            return redirect('custom-login')
+            return redirect('login')
+
     else:
         return render(request, 'authenticate/login.html', {})
 
