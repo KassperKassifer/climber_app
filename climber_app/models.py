@@ -57,7 +57,7 @@ class Route(models.Model):
     #if you define this method then Django will automatically
     # add a "View on Site" button to the model's record editing screens in the Admin site
     def get_absolute_url(self):
-        return reverse('route-detail', args=[str(self.id)])
+        return reverse('view-route', args=[str(self.gym.id), str(self.id)])
     
     class Meta:
         ordering = ["-date_added"]

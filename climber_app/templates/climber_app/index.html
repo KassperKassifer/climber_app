@@ -15,6 +15,7 @@ to find a good place to start, we've got you covered!
 
 <div class="button-container">
     {% if user.is_authenticated %}
+        <p>Welcome, {{ user }}! </p>
         <div class="d-grid gap-4 col-10">
             <a href="{{ user.gym.get_absolute_url }}" class="btn btn-success">Want to take a look at the<br> {{ user.gym.name }} profile?</a>
             <a href="{% url 'gyms' %}" class="btn  btn-info">Want to check out the competition? <br>Look at our list of registered gyms.</a>

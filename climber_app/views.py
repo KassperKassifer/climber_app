@@ -7,7 +7,6 @@ from django.contrib import messages
 from django.contrib.auth.models import Group
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
-from functools import wraps
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .decorators import allowed_users
 from django.contrib.auth.views import redirect_to_login
@@ -38,7 +37,7 @@ def index(request):
 
 
 # Create Route form view
-@login_required(login_url='custom-login')
+@login_required(login_url='login')
 @allowed_users(allowed_roles=['gym_role'])
 def createRoute(request, gym_id):
     form = RouteForm()
@@ -109,8 +108,10 @@ class RouteUpdateView(LoginRequiredMixin, generic.edit.UpdateView):
         """
         Redirect to the login page if the user is not logged in.
         """
-        login_url = reverse_lazy('custom-login')
+        login_url = reverse_lazy('login')
         path = self.request.get_full_path()
+        # Store the current URL in the session
+        self.request.session['next'] = path
         return redirect_to_login(path, login_url, 'next')
 
 class RouteDeleteView(LoginRequiredMixin, generic.edit.DeleteView):
@@ -126,8 +127,10 @@ class RouteDeleteView(LoginRequiredMixin, generic.edit.DeleteView):
         """
         Redirect to the login page if the user is not logged in.
         """
-        login_url = reverse_lazy('custom-login')
+        login_url = reverse_lazy('login')
         path = self.request.get_full_path()
+        # Store the current URL in the session
+        self.request.session['next'] = path
         return redirect_to_login(path, login_url, 'next')
     
 class GymCreateView(LoginRequiredMixin, generic.edit.CreateView):
@@ -147,8 +150,10 @@ class GymCreateView(LoginRequiredMixin, generic.edit.CreateView):
         """
         Redirect to the login page if the user is not logged in.
         """
-        login_url = reverse_lazy('custom-login')
+        login_url = reverse_lazy('login')
         path = self.request.get_full_path()
+        # Store the current URL in the session
+        self.request.session['next'] = path
         return redirect_to_login(path, login_url, 'next')
     
     
@@ -172,8 +177,10 @@ class GymUpdateView(LoginRequiredMixin, generic.edit.UpdateView):
         """
         Redirect to the login page if the user is not logged in.
         """
-        login_url = reverse_lazy('custom-login')
+        login_url = reverse_lazy('login')
         path = self.request.get_full_path()
+        # Store the current URL in the session
+        self.request.session['next'] = path
         return redirect_to_login(path, login_url, 'next')
     
     # This automatically handles request.POST and request.FILES, which are needed for users to upload images
@@ -196,13 +203,13 @@ def registerPage(request):
             gym.save()
 
             messages.success(request, 'Account was created for ' + username)
-            return redirect('custom-login')
+            return redirect('login')
     
     context = {'form':form}
     return render(request, 'registration/register.html', context)
 
     
-@login_required(login_url='custom-login')
+@login_required(login_url='login')
 @allowed_users(allowed_roles=['gym_role'])
 def userPage(request):
     gym = request.user.gym
